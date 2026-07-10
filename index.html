@@ -31,7 +31,9 @@ html[data-theme="light"] .num,html[data-theme="light"] .dcell,html[data-theme="l
   box-shadow:0 1px 2px rgba(35,40,45,.08),0 6px 18px rgba(35,40,45,.07)}
 html[data-theme="light"] .aurora i{opacity:.22;filter:blur(80px)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{min-height:100%;-webkit-text-size-adjust:100%}
+html{min-height:100%;-webkit-text-size-adjust:100%;touch-action:manipulation}
+html,body{overflow-x:hidden}
+*{-webkit-tap-highlight-color:transparent}
 body{min-height:100vh;min-height:100dvh}
 body{background:var(--bg);color:var(--paper);
   font-family:"IBM Plex Sans",-apple-system,system-ui,sans-serif;
@@ -49,11 +51,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   @keyframes vtIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 h1{font-size:23px;font-weight:600;margin-bottom:2px;letter-spacing:-.01em}
-h2{font-size:13px;font-weight:500;color:var(--dim);margin:26px 0 10px}
+h2{font-size:13px;font-weight:500;color:var(--dim);margin:24px 0 12px}
 .mono{font-family:"JetBrains Mono",monospace}
 .disp{font-family:"Unbounded",sans-serif}
 .sub{color:var(--dim);font-size:14px}
-.card{background:var(--s1);border-radius:18px;padding:6px 16px;margin-bottom:12px;
+.card{background:var(--s1);border-radius:20px;padding:6px 16px;margin-bottom:12px;
   box-shadow:0 1px 1px rgba(0,0,0,.18),0 8px 24px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.025);
   transition:box-shadow .25s ease,transform .25s ease}
 .card.pad{padding:16px}
@@ -85,7 +87,8 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
   transition:background .25s ease,color .25s ease}
 #tabbar button:hover{background:none;color:var(--dim)}
 #tabbar button.on{background:var(--s2)}
-#tabbar button .g{font-size:18px;line-height:1.15;font-family:"Unbounded";font-weight:500}
+#tabbar button .g{width:22px;height:22px;display:block}
+#tabbar button .g svg{width:100%;height:100%;display:block}
 #tabbar button.on{color:var(--acc)}
 .tplgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .tpl{background:var(--s1);border-radius:18px;padding:16px 14px;cursor:pointer;text-align:left;
@@ -177,7 +180,7 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .mday{position:relative}
 .mday .wm{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--paper)}
 .mday.on{background:linear-gradient(160deg,var(--acc),var(--acc-deep));box-shadow:0 2px 8px var(--acc-glow)}
-.cdate{min-width:42px;text-align:center;background:var(--s2);border-radius:11px;padding:7px 4px;height:fit-content}
+.cdate{min-width:44px;text-align:center;background:var(--s2);border-radius:12px;padding:7px 4px;height:fit-content}
 .cdate b{font-family:"Unbounded";font-size:15px;display:block;line-height:1.2}
 .cdate span{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
 .cbody{flex:1;min-width:0}
@@ -206,7 +209,8 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .seal .in{font-family:"Unbounded";font-size:16px;font-weight:700;color:var(--acc);line-height:1.35}
 .seal .wm{position:absolute;bottom:26px;left:0;right:0;font-family:"JetBrains Mono";font-size:8.5px;letter-spacing:.3em;color:var(--acc-deep)}
 @media (prefers-reduced-motion:no-preference){
-  .seal{animation:mint .5s cubic-bezier(.2,1.4,.4,1)}
+  .seal{animation:stampIn .55s cubic-bezier(.25,1.35,.45,1)}
+  @keyframes stampIn{0%{transform:scale(1.65) rotate(-6deg);opacity:0}62%{transform:scale(.965) rotate(.8deg);opacity:1}100%{transform:none}}
   @keyframes mint{from{transform:scale(1.25);opacity:0}to{transform:scale(1);opacity:1}}
 }
 .hint{font-size:13px;color:var(--dim);margin-top:8px}
@@ -271,13 +275,14 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
   .nextstep{font-size:20px}
   #tabbar{justify-content:center;gap:38px;padding:10px 6px calc(10px + env(safe-area-inset-bottom))}
   #tabbar button{font-size:12px;padding:6px 14px}
-  #tabbar button .g{font-size:20px}
+  #tabbar button .g{width:24px;height:24px}
   .wk2{display:grid;grid-template-columns:1fr 1.35fr;gap:24px;align-items:start}
 }
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom));
+  max-width:calc(100vw - 28px);
   background:var(--s3);color:var(--paper);padding:9px 9px 9px 16px;border-radius:14px;
   display:flex;gap:12px;align-items:center;z-index:60;
-  box-shadow:0 8px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);font-size:14px;white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);font-size:14px;
   animation:tup .28s cubic-bezier(.3,1.4,.5,1)}
 @keyframes tup{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
 .hero{position:relative;min-height:70vh;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:6px;padding:0 8px;overflow:visible}
@@ -310,10 +315,10 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .pagehead .rowline{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
 .pagehead h1{background:linear-gradient(100deg,var(--paper) 30%,color-mix(in srgb,var(--paper) 45%,var(--acc)));
   -webkit-background-clip:text;background-clip:text;color:transparent}
-.pagehead .meta{font-size:13px;color:var(--dim);white-space:nowrap}
+.pagehead .meta{font-size:13px;color:var(--dim);white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis}
 .pagehead .glow{height:1px;margin-top:14px;background:linear-gradient(90deg,var(--acc-deep),rgba(0,0,0,0) 70%)}
 .weekgrid{display:flex;flex-direction:column;gap:11px}
-.wday{background:var(--s1);border-radius:16px;padding:11px 13px 8px;
+.wday{background:var(--s1);border-radius:20px;padding:11px 13px 8px;
   box-shadow:0 1px 1px rgba(0,0,0,.18),0 8px 24px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.025);
   transition:box-shadow .25s ease}
 .wday.today{box-shadow:0 1px 1px rgba(0,0,0,.18),0 8px 24px rgba(0,0,0,.16),inset 0 0 0 1.5px var(--acc-deep)}
@@ -337,7 +342,7 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .wdbody .quietadd{padding:8px 2px;font-size:13px;color:var(--faint)}
 .wdbody .quietadd .plus{width:19px;height:19px;min-width:19px;font-size:13px}
 .wdprod{font-size:12.5px;color:var(--dim);padding:7px 2px 3px;font-style:italic}
-.task.pill{display:flex;align-items:center;gap:7px;padding:7px 9px 9px;margin:6px 0;border-radius:10px;
+.task.pill{display:flex;align-items:center;gap:8px;padding:7px 10px 9px;margin:6px 0;border-radius:12px;
   position:relative;overflow:hidden;cursor:pointer;
   background:linear-gradient(90deg,color-mix(in srgb,var(--sph,var(--s3)) 20%,var(--s1)),color-mix(in srgb,var(--sph,var(--s3)) 9%,var(--s1)));
   box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--sph,var(--s3)) 30%,transparent)}
@@ -348,6 +353,40 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .task.pill .pb{position:absolute;left:0;right:0;bottom:0;height:2px;margin:0;background:rgba(0,0,0,.25)}
 .task.pill.done{opacity:.5}
 .task.pill.done .pt{color:var(--faint)}
+@media (hover:none){
+  .task:active{background:var(--s2);transform:scale(.988)}
+  .task.blk:active{filter:brightness(1.12)}
+  .block:active,.quietadd:active,.vec .vn:active,.result .rt:active{background:var(--s2)}
+  .wdhead:active,.mwhead:active{opacity:.75}
+}
+@media (max-width:639px){
+  .card{border-radius:20px;margin-bottom:16px}
+  .task{padding:13px 2px}
+  .task .box{width:25px;height:25px;min-width:25px}
+  .task.done .box::after{font-size:14px}
+  .task .del{opacity:.55;font-size:20px;padding:4px 10px}
+  .blkE{opacity:.55;font-size:14px;padding:4px 10px}
+  .sphdot{width:16px;height:16px;min-width:16px}
+  .gchev{font-size:18px;padding:0 8px}
+  .task.pill{padding:11px 11px 13px}
+  .task.pill .pt{font-size:13.5px}
+  .task.pill .box{width:20px;height:20px;min-width:20px}
+  .quietadd{padding:13px 2px}
+  .quietadd .plus{width:25px;height:25px;min-width:25px}
+  .wday{padding:13px 14px 10px;border-radius:20px;
+    box-shadow:0 1px 1px rgba(0,0,0,.2),0 10px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.03)}
+  .weekgrid{gap:13px}
+  .wdbody .task{padding:11px 2px}
+  .wdbody .task .box{width:22px;height:22px;min-width:22px}
+  .wdbody .task .t{font-size:14.5px}
+  .status{min-width:96px;padding:8px 12px}
+}
+.mwsec{display:flex;align-items:center;gap:8px;margin:26px 0 10px;cursor:pointer}
+.mwsec h2{margin:0}
+.mwhead{display:flex;align-items:center;gap:10px;padding:12px 2px;cursor:pointer}
+.mwhead .wdnum{font-family:"Unbounded";font-size:17px;font-weight:500}
+.wday.today .mwhead .wdnum{color:var(--acc)}
+.mwcnt{margin-left:auto;font-family:"JetBrains Mono";font-size:11.5px;color:var(--dim)}
 /* ярус 2: доска со скроллом 640–999 */
 @media (min-width:640px) and (max-width:999px){
   .weekgrid{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
@@ -358,7 +397,7 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
   .weekgrid{display:grid;grid-template-columns:var(--tcols,repeat(7,1fr));gap:9px;align-items:start}
   .wday{min-height:190px}
 }
-.task.blk{display:block;position:relative;padding:0;margin:9px 0;border-radius:14px;overflow:hidden;cursor:pointer;
+.task.blk{display:block;position:relative;padding:0;margin:10px 0;border-radius:16px;overflow:hidden;cursor:pointer;
   background:linear-gradient(100deg,color-mix(in srgb,var(--sph,var(--s2)) 13%,var(--s1)) 0%,var(--s1) 60%);
   box-shadow:0 1px 1px rgba(0,0,0,.16),0 5px 14px rgba(0,0,0,.12)}
 .task.blk::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sph,var(--s3))}
@@ -380,7 +419,7 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .sphpick{width:21px;height:21px;border-radius:50%;cursor:pointer;opacity:.45;transition:all .15s}
 .sphpick.on{opacity:1;box-shadow:0 0 0 2px var(--paper)}
 .gameline{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 2px;padding:9px 13px;
-  background:var(--s1);border-radius:13px;cursor:pointer;
+  background:var(--s1);border-radius:16px;cursor:pointer;
   box-shadow:0 1px 1px rgba(0,0,0,.16),inset 0 0 0 1px var(--acc-deep)}
 .gameline .gl-label{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.15em;color:var(--acc);text-transform:uppercase}
 .gameline .gl-item{font-size:12.5px;color:var(--paper)}
@@ -388,6 +427,10 @@ label{display:block;font-size:12.5px;color:var(--dim);margin:14px 0 6px}
 .gameline .gl-item.ok i{color:var(--acc)}
 .gameline .gl-item+.gl-item{border-left:1px solid var(--line);padding-left:8px}
 .dragov{box-shadow:inset 0 0 0 2px var(--acc) !important;background:var(--s2) !important}
+.emptybox{display:flex;flex-direction:column;align-items:center;gap:9px;padding:24px 14px;text-align:center}
+.emptybox svg{width:40px;height:40px;stroke:var(--faint);opacity:.8}
+.emptybox .et{color:var(--dim);font-size:13.5px}
+.emptybox .es{color:var(--faint);font-size:12px;max-width:260px;line-height:1.55}
 .card.game{box-shadow:0 1px 1px rgba(0,0,0,.18),0 8px 24px rgba(0,0,0,.14),inset 0 0 0 1.5px var(--acc-deep)}
 .card.game .rt{font-size:15.5px;font-weight:500}
 .card.pool{background:linear-gradient(180deg,var(--s1),color-mix(in srgb,var(--s1) 88%,var(--acc-deep)))}
@@ -496,12 +539,18 @@ function visibleTplIds(){
 }
 function chime(){
   if(!S.settings.sound)return;
-  try{const a=new (window.AudioContext||window.webkitAudioContext)();
-    const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);
-    o.frequency.value=660;g.gain.setValueAtTime(.001,a.currentTime);
-    g.gain.exponentialRampToValueAtTime(.14,a.currentTime+.02);
-    g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.6);
-    o.start();o.frequency.exponentialRampToValueAtTime(440,a.currentTime+.5);o.stop(a.currentTime+.62);
+  try{
+    const a=new (window.AudioContext||window.webkitAudioContext)();
+    const t0=a.currentTime;
+    [[523.25,0,.10,.9],[659.25,.07,.07,1.05],[783.99,.14,.035,1.1]].forEach(([f,dl,vol,dur])=>{
+      const o=a.createOscillator(),g=a.createGain();
+      o.type="sine";o.frequency.value=f;
+      o.connect(g);g.connect(a.destination);
+      g.gain.setValueAtTime(.0001,t0+dl);
+      g.gain.exponentialRampToValueAtTime(vol,t0+dl+.018);
+      g.gain.exponentialRampToValueAtTime(.0001,t0+dl+dur);
+      o.start(t0+dl);o.stop(t0+dl+dur+.05);
+    });
   }catch(e){}
 }
 function exportJSON(){
@@ -557,7 +606,7 @@ function plural(n){const m=n%10,h=n%100;if(m===1&&h!==11)return"день";if(m>=
 /* состояние UI */
 let tab="week",overlay=null,selDay=null,editResult=-1,sprintStepMode=false,editVec=-1,editPack=-1;
 let structOpen=false,addCtx=null,packsCtx=null;
-let clTarget=null,greetDismissed=false,pendingUndo=null,ob=1,poolPick=false;
+let clTarget=null,greetDismissed=false,pendingUndo=null,ob=1,poolPick=false,mwOpen={},mwPool=false;
 function takeFromPool(i){
   const it=curWeek().pool.splice(i,1)[0];
   it.src="из пула";day(todayISO()).tasks.push(it);
@@ -596,8 +645,14 @@ function startTyping(){
   const el=q("#typegreet");if(!el||el.dataset.done)return;
   el.dataset.done="1";
   const full=el.getAttribute("data-text")||"";
+  if(window._typedOnce){
+    el.textContent=full;
+    const c0=q("#caret");if(c0)c0.style.opacity="0";
+    const qb0=q("#qblock");if(qb0)qb0.classList.add("show");
+    return;
+  }
   const reduced=typeof matchMedia!=="undefined"&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const fin=()=>{const qb=q("#qblock");if(qb)qb.classList.add("show")};
+  const fin=()=>{window._typedOnce=true;const qb=q("#qblock");if(qb)qb.classList.add("show")};
   if(reduced){el.textContent=full;const c=q("#caret");if(c)c.remove();fin();return}
   let i=0;
   const tick=()=>{
@@ -620,9 +675,16 @@ function render(){
   }
   document.getElementById("app").innerHTML =
     tab==="today"?rToday():tab==="week"?rWeek():tab==="sprint"?rSprint():tab==="proofs"?rProofs():rBase();
+  const IC={
+    week:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="4.5" width="18" height="16" rx="3.4"/><path d="M3 9.5h18M9 4.5v16M15 4.5v16"/></svg>',
+    today:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>',
+    sprint:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 5.5 11 12l-6.5 6.5M12.5 5.5 19 12l-6.5 6.5"/></svg>',
+    proofs:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="13.5" width="3.6" height="6.5" rx="1.6"/><rect x="10.2" y="9" width="3.6" height="11" rx="1.6"/><rect x="16.4" y="4.5" width="3.6" height="15.5" rx="1.6"/></svg>',
+    base:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7.5h16M4 12h16M4 16.5h16"/><circle cx="9.5" cy="7.5" r="2" fill="var(--bg)"/><circle cx="15" cy="12" r="2" fill="var(--bg)"/><circle cx="8" cy="16.5" r="2" fill="var(--bg)"/></svg>'
+  };
   document.getElementById("tabbar").innerHTML=[
-    ["week","VII","Неделя"],["today","◆","Сегодня"],["sprint","→","Спринт"],["proofs","₪","Доказ-ва"],["base","≡","Основа"]
-  ].map(([id,g,l])=>`<button class="${tab===id?"on":""}" onclick="go('${id}')"><span class="g">${g}</span>${l}</button>`).join("");
+    ["week","Неделя"],["today","Сегодня"],["sprint","Спринт"],["proofs","Доказ-ва"],["base","Основа"]
+  ].map(([id,l])=>`<button class="${tab===id?"on":""}" onclick="go('${id}')"><span class="g">${IC[id]}</span>${l}</button>`).join("");
   if(overlay)document.getElementById("app").insertAdjacentHTML("beforeend",overlay);
   if(pendingUndo)document.getElementById("app").insertAdjacentHTML("beforeend",
     `<div class="toast">${esc(pendingUndo.msg)}${pendingUndo.undoFn?`<button class="small" onclick="undoNow()">Вернуть</button>`:""}</div>`);
@@ -831,7 +893,7 @@ function returnBlocks(dISO,destPool){
 }
 function sweepReturns(){
   const m=monday(new Date()),w=week(m);let cnt=0;
-  for(let i=0;i<7;i++){const dISO=addDays(m,i);if(dISO>=todayISO())break;cnt+=returnBlocks(dISO,w.pool)}
+  for(let i=-7;i<7;i++){const dISO=addDays(m,i);if(dISO>=todayISO())break;cnt+=returnBlocks(dISO,w.pool)}
   return cnt;
 }
 function metaDay(dISO){
@@ -887,7 +949,19 @@ function delSub(dISO,i,j){
   const x=day(dISO).tasks[i];x.sub.splice(j,1);
   x.done=x.sub.length>0&&x.sub.every(s=>s.done);render();
 }
-function toggleOpen(dISO,i){const x=day(dISO).tasks[i];x.open=!x.open;render()}
+function springIn(sel){
+  try{
+    if(typeof document==="undefined"||!document.querySelector)return;
+    if(typeof matchMedia!=="undefined"&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    const el=document.querySelector(sel);if(!el||!el.animate)return;
+    el.animate([{transform:"scale(.965)",opacity:.55},{transform:"scale(1.01)",opacity:1,offset:.7},{transform:"scale(1)"}],
+      {duration:270,easing:"cubic-bezier(.3,1.4,.5,1)"});
+  }catch(e){}
+}
+function toggleOpen(dISO,i){
+  const x=day(dISO).tasks[i];x.open=!x.open;render();
+  if(x.open)springIn(`.task[data-d="${dISO}"][data-i="${i}"]`);
+}
 /* drag-and-drop (десктоп) */
 let DRAG=null;
 function dragT(e,d,i){DRAG={d,i};if(e.dataTransfer)e.dataTransfer.effectAllowed="move"}
@@ -929,7 +1003,7 @@ function poolRow(x,i){
   const k=hasSub?x.sub.filter(s2=>s2.done).length:0,nn=hasSub?x.sub.length:0;
   const done=hasSub?(nn>0&&k===nn):!!x.done;
   const col=sphColor(x),sn=sphName(x);
-  let g=`<div class="task blk ${done?"done":""}" ${dnd} style="${col?`--sph:${col}`:""}"
+  let g=`<div class="task blk ${done?"done":""}" ${dnd} data-p="${i}" style="${col?`--sph:${col}`:""}"
     onclick="${hasSub?`toggleOpenPool(${i})`:`togglePool(${i})`}">
     <div class="blkhead">
       <div class="box" role="checkbox" aria-checked="${done}" onclick="event.stopPropagation();togglePool(${i})"></div>
@@ -1018,7 +1092,10 @@ function togglePool(i){
   else x.done=!x.done;render();
 }
 function togglePoolSub(i,j){const x=poolArr()[i];x.sub[j].done=!x.sub[j].done;x.done=x.sub.length>0&&x.sub.every(s2=>s2.done);render()}
-function toggleOpenPool(i){const x=poolArr()[i];x.open=!x.open;render()}
+function toggleOpenPool(i){
+  const x=poolArr()[i];x.open=!x.open;render();
+  if(x.open)springIn(`.task.blk[data-p="${i}"]`);
+}
 function delPool(i){
   const it=poolArr()[i];poolArr().splice(i,1);
   showToast("Убрано из пула",()=>{poolArr().splice(i,0,it);render()});
@@ -1077,7 +1154,7 @@ function renderClosure(){
 function tmrSnapshot(){
   window._clp=(document.getElementById("cl-p")||{}).value||"";
   window._clu=(document.getElementById("cl-u")||{}).value||"";
-  tmr=tmr.map((_,i)=>(document.getElementById("cl-t"+i)||{}).value||"");
+  tmr=tmr.map((_,i)=>(((document.getElementById("cl-t"+i)||{}).value)||""));
 }
 function tmrAdd(){tmrSnapshot();tmr.push("");renderClosure()}
 function finishPaper(){const d=day(clTarget);d.closed=true;d.produced="(записано на бумаге)";const rc=returnBlocks(clTarget,curWeek().pool);sealScreen(clTarget,rc)}
@@ -1139,47 +1216,71 @@ function rWeek(){
         onkeydown="if(event.key==='Enter')addResult()"><button class="small" onclick="addResult()">Готово</button></div>`
       :`<div class="quietadd" onclick="addCtx='wres';render()"><div class="plus">+</div><div>Результат</div></div>`):"")+
     `</div>`;
-  /* Верстак — плавающий пул */
+  /* Пул недели */
   const pool=w.pool;
-  h+=`<h2>Пул недели${pool.length?" · "+pool.length:""}</h2>
-    <div class="card pool" ondragover="event.preventDefault();this.classList.add('dragov')" ondragleave="this.classList.remove('dragov')" ondrop="this.classList.remove('dragov');dropPool(event)">`+
-    (pool.length?pool.map((x,i)=>poolRow(x,i)).join(""):`<div class="empty" style="padding:10px 4px">Пул пуст — блоки недели собираются здесь</div>`)+
+  const isMob=(typeof window!=="undefined"&&window.innerWidth&&window.innerWidth<640);
+  const poolInner=(pool.length?pool.map((x,i)=>poolRow(x,i)).join(""):`<div class="emptybox"><svg viewBox="0 0 40 40" fill="none" stroke-width="1.6" stroke-linecap="round"><rect x="6" y="6" width="28" height="28" rx="8" stroke-dasharray="4 5"/><path d="M20 14v12M14 20h12"/></svg><div class="et">Пул пуст</div><div class="es">Собери блоки недели — конструктором или из паков ⊞</div></div>`)+
     `<div class="quietadd" onclick="openBlockEditor('pool',null)">
       <div class="plus">+</div><div>Собрать блок</div>
       <div style="margin-left:auto;padding:2px 8px;color:var(--faint)" onclick="event.stopPropagation();packsCtx=packsCtx==='pool'?null:'pool';render()">⊞</div></div>`+
-    (packsCtx==="pool"&&S.packs.length?`<div class="chips">`+S.packs.map((pk,i)=>`<button class="small ghost" onclick="addPackPool(${i})">⊞ ${esc(pk.name)} · ${pk.items.length}</button>`).join("")+`</div>`:"")+
-  `</div>`;
-  h+=`<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px">
-    <button class="small ghost" onclick="weekOff--;render()">‹ пред</button>
-    ${weekOff!==0?`<button class="small" onclick="weekOff=0;render()">к текущей</button>`:`<span class="sub" style="font-size:12px">текущая неделя</span>`}
-    <button class="small ghost" onclick="weekOff++;render()">след ›</button></div>`;
-  const tIdx=(new Date().getDay()+6)%7;
-  const tcols=[0,1,2,3,4,5,6].map(i=>weekOff===0&&i===tIdx?"1.45fr":"1fr").join(" ");
-  h+=`<h2>Дни · перетаскивай блоки из пула</h2><div class="weekgrid" style="--tcols:${tcols}">`+
-    [0,1,2,3,4,5,6].map(i=>{
-      const dISO=addDays(m,i),dd=day(dISO),mark=w.marks[dISO];
-      const isPast=dISO<todayISO(),isToday=dISO===todayISO();
-      const tot=dd.tasks.length;
-      const don=dd.tasks.filter(x=>x.sub?(x.sub.length>0&&x.sub.every(s2=>s2.done)):x.done).length;
-      const pw=tot?Math.round(don/tot*100):0;
-      let col=`<div class="wday ${isToday?"today":""}" ondragover="event.preventDefault();this.classList.add('dragov')" ondragleave="this.classList.remove('dragov')" ondrop="this.classList.remove('dragov');dropDay(event,'${dISO}')">
-        <div class="wdhead" ${isToday?`style="cursor:pointer" onclick="go('today')" title="открыть день"`:""}>
-          <div class="lantern ${dd.closed?"lit":""}" title="${dd.closed?"день закрыт":""}"></div>
-          <span class="wdd">${DOW[i]}</span>
-          <span class="wdnum">${Number(dISO.slice(8,10))}</span>
-          ${isToday?`<span style="font-size:10px;color:var(--acc)">открыть ›</span>`:""}
-          <span class="wdtpl ${mark==="V"?"v":""}">${mark?esc(getTpl(mark).k):""}</span>
-          ${!isPast&&!isToday?`<span class="wdinv" onclick="event.stopPropagation();${mark==="V"?`unmarkInvasion('${dISO}')`:`markInvasion('${dISO}')`}" title="вторжение">⚡</span>`:""}
-        </div>
-        <div class="dbar"><i id="bar-${dISO}" style="width:${pw}%"></i></div>
-        <div class="wdbody">`;
-      if(dd.closed&&dd.produced)col+=`<div class="wdprod">${esc(dd.produced)}</div>`;
-      col+=dd.tasks.map((x,ti)=>taskRow(x,ti,dISO,true)).join("");
-      if(!tot&&isPast)col+=`<div class="empty" style="padding:8px 2px;font-size:12.5px">—</div>`;
-      if(!isPast)col+=addArea(dISO,"wd"+i);
-      col+=`</div></div>`;
-      return col;
-    }).join("")+`</div>`;
+    (packsCtx==="pool"&&S.packs.length?`<div class="chips">`+S.packs.map((pk,i)=>`<button class="small ghost" onclick="addPackPool(${i})">⊞ ${esc(pk.name)} · ${pk.items.length}</button>`).join("")+`</div>`:"");
+  const poolCard=`<div class="card pool" ondragover="event.preventDefault();this.classList.add('dragov')" ondragleave="this.classList.remove('dragov')" ondrop="this.classList.remove('dragov');dropPool(event)">`+poolInner+`</div>`;
+  if(isMob){
+    h+=`<div class="mwsec" onclick="mwPool=!mwPool;render()"><h2>Пул недели · ${pool.length}</h2><span class="gchev ${mwPool?"open":""}" style="margin-left:auto">›</span></div>`;
+    if(mwPool)h+=poolCard;
+  }else{
+    h+=`<h2>Пул недели${pool.length?" · "+pool.length:""}</h2>`+poolCard;
+  }
+  /* дни */
+  const dayCol=(i,expanded)=>{
+    const dISO=addDays(m,i),dd=day(dISO),mark=w.marks[dISO];
+    const isPast=dISO<todayISO(),isToday=dISO===todayISO();
+    const tot=dd.tasks.length;
+    const don=dd.tasks.filter(x=>x.sub?(x.sub.length>0&&x.sub.every(s2=>s2.done)):x.done).length;
+    const pw=tot?Math.round(don/tot*100):0;
+    let col=`<div class="wday ${isToday?"today":""}" ondragover="event.preventDefault();this.classList.add('dragov')" ondragleave="this.classList.remove('dragov')" ondrop="this.classList.remove('dragov');dropDay(event,'${dISO}')">`;
+    const bodyHTML=()=>{
+      let b=`<div class="dbar"><i id="bar-${dISO}" style="width:${pw}%"></i></div><div class="wdbody">`;
+      if(dd.closed&&dd.produced)b+=`<div class="wdprod">${esc(dd.produced)}</div>`;
+      b+=dd.tasks.map((x,ti)=>taskRow(x,ti,dISO,true)).join("");
+      if(!tot&&isPast)b+=`<div class="empty" style="padding:8px 2px;font-size:12.5px">—</div>`;
+      if(!isPast)b+=addArea(dISO,"wd"+i);
+      return b+`</div>`;
+    };
+    if(expanded){
+      col+=`<div class="wdhead" ${isToday?`style="cursor:pointer" onclick="go('today')" title="открыть день"`:""}>
+        <div class="lantern ${dd.closed?"lit":""}"></div>
+        <span class="wdd">${DOW[i]}</span>
+        <span class="wdnum">${Number(dISO.slice(8,10))}</span>
+        <span class="wdtpl ${mark==="V"?"v":""}">${mark?esc(getTpl(mark).k):""}</span>
+        ${isToday?`<span style="font-size:10px;color:var(--acc)">открыть ›</span>`:""}
+        ${!isPast&&!isToday?`<span class="wdinv" onclick="event.stopPropagation();${mark==="V"?`unmarkInvasion('${dISO}')`:`markInvasion('${dISO}')`}">⚡</span>`:""}
+      </div>`+bodyHTML();
+    }else{
+      col+=`<div class="mwhead" onclick="mwOpen['${dISO}']=!mwOpen['${dISO}'];render()">
+        <div class="lantern ${dd.closed?"lit":""}"></div>
+        <span class="wdd">${DOW[i]}</span>
+        <span class="wdnum">${Number(dISO.slice(8,10))}</span>
+        <span class="wdtpl ${mark==="V"?"v":""}">${mark?esc(getTpl(mark).k):""}</span>
+        ${!isPast&&!isToday?`<span class="wdinv" style="margin-left:2px" onclick="event.stopPropagation();${mark==="V"?`unmarkInvasion('${dISO}')`:`markInvasion('${dISO}')`}">⚡</span>`:""}
+        <span class="mwcnt">${tot?don+"/"+tot:""}</span>
+        <span class="gchev ${mwOpen[dISO]?"open":""}">›</span></div>`;
+      if(mwOpen[dISO])col+=bodyHTML();
+    }
+    return col+`</div>`;
+  };
+  if(!isMob){
+    const tIdxD=(new Date().getDay()+6)%7;
+    const tcols=[0,1,2,3,4,5,6].map(i=>weekOff===0&&i===tIdxD?"1.45fr":"1fr").join(" ");
+    h+=`<h2>Дни · перетаскивай блоки из пула</h2><div class="weekgrid" style="--tcols:${tcols}">`+
+      [0,1,2,3,4,5,6].map(i=>dayCol(i,true)).join("")+`</div>`;
+  }else{
+    const tI=(new Date().getDay()+6)%7;
+    const showT=weekOff===0;
+    h+=`<h2>Дни</h2><div class="weekgrid">`;
+    if(showT)h+=dayCol(tI,true);
+    h+=[0,1,2,3,4,5,6].filter(i=>!(showT&&i===tI)).map(i=>dayCol(i,false)).join("")+`</div>`;
+  }
   if(weekOff===0)h+=`<div style="margin-top:20px"><button class="wide ${w.ritualDone?"":"primary"}" onclick="openRitual()">
       ${w.ritualDone?"Пересобрать неделю":"Воскресный ритуал · 10 мин"}</button></div>`;
   return h;
@@ -1265,12 +1366,12 @@ function ritualNext(prevM){
   R.step=2;renderRitual();
 }
 function ritualSaveResults(){
-  R.results=[0,1,2].map(i=>(document.getElementById("rw"+i)||{}).value.trim()).filter(Boolean);
+  R.results=[0,1,2].map(i=>(((document.getElementById("rw"+i)||{}).value)||"").trim()).filter(Boolean);
   if(!R.results.length){alert("Хотя бы один результат — иначе неделя без цели.");return}
   R.step=4;renderRitual();
 }
 function ritualAddPool(){
-  const v=((document.getElementById("rp")||{}).value||"").trim();
+  const v=(((document.getElementById("rp")||{}).value)||"").trim();
   if(!v)return;R.pool.push({text:v,done:false,src:"",kind:"block",sphere:null});renderRitual();
 }
 function ritualAddPack(pi){
@@ -1298,7 +1399,7 @@ function rSprint(){
     let g=`<h2>Запланированные</h2><div class="card">`+
       (queue.length?queue.map((x,i)=>`<div class="result"><div class="rt">${esc(x)}</div>
         ${showLaunch?`<button class="small" onclick="launchQueued(${i})">Запустить</button>`:""}
-        <div class="del" style="opacity:.7" onclick="delQueued(${i})">×</div></div>`).join(""):`<div class="empty">Очередь пуста</div>`)+
+        <div class="del" style="opacity:.7" onclick="delQueued(${i})">×</div></div>`).join(""):`<div class="emptybox" style="padding:16px"><svg viewBox="0 0 40 40" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10l9 10-9 10M21 10l9 10-9 10" stroke-dasharray="3 4"/></svg><div class="et">Очередь пуста</div><div class="es">Идеи будущих спринтов складывай сюда</div></div>`)+
       (addCtx==="qsp"?`<div class="addrow"><input type="text" id="af" placeholder="Название будущего спринта"
         onkeydown="if(event.key==='Enter')addQueued()"><button class="small" onclick="addQueued()">Готово</button></div>`
       :`<div class="quietadd" onclick="addCtx='qsp';render()"><div class="plus">+</div><div>Запланировать спринт</div></div>`)+`</div>`;
@@ -1344,14 +1445,14 @@ function delQueued(i){
 }
 function launchQueued(i){draftSprint=S.sprintQueue[i];S.sprintQueue.splice(i,1);render()}
 function startSprint(){
-  const g=id=>(document.getElementById(id)||{}).value.trim();
+  const g=id=>(((document.getElementById(id)||{}).value)||"").trim();
   const n=g("sp-n"),r=g("sp-r"),s=g("sp-s");
   if(!n||!r||!s){alert("Все три поля — иначе спринт без формы.");return}
   S.sprint={name:n,result:r,nextStep:s,steps:[],status:"active",started:todayISO(),stepSet:todayISO()};draftSprint=null;render();
 }
 function stepDone(){S.sprint.steps.push(S.sprint.nextStep);sprintStepMode=true;render()}
 function saveNextStep(){
-  const v=(document.getElementById("af")||{}).value.trim();
+  const v=(((document.getElementById("af")||{}).value)||"").trim();
   S.sprint.nextStep=v||"— назначить следующий шаг —";S.sprint.stepSet=todayISO();sprintStepMode=false;render();
 }
 function finishSprint(){
@@ -1421,7 +1522,7 @@ function rProofs(){
   const shown=feed.filter(f=>proofQ
     ?((f.t||"")+" "+(f.n||"")+" "+(f.p||"")+" "+(f.u||"")).toLowerCase().includes(proofQ)
     :f.date.startsWith(proofMonth));
-  if(!shown.length)return h+`<div class="empty">${proofQ?"Ничего не найдено":"В этом месяце закрытых дней нет"}</div>`;
+  if(!shown.length)return h+`<div class="card"><div class="emptybox"><svg viewBox="0 0 40 40" fill="none" stroke-width="1.6"><circle cx="20" cy="20" r="13" stroke-dasharray="4 5"/><path d="M14.5 20.5l3.6 3.6 7.4-8" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="et">${proofQ?"Ничего не найдено":"Закрытых дней в этом месяце нет"}</div><div class="es">${proofQ?"Попробуй другое слово":"Каждый закрытый вечер оставит здесь след"}</div></div></div>`;
   const groups={};
   shown.forEach(f=>{const m=monday(new Date(f.date+"T12:00"));(groups[m]=groups[m]||[]).push(f)});
   Object.keys(groups).sort((a,b)=>b<a?-1:1).forEach(m=>{
@@ -1596,11 +1697,11 @@ function rBase(){
         <div class="vd">${human(m)} — ${human(addDays(m,6))} · ${esc(w.verdict||"")}</div></div>`).join("")+`</div>`;
   }
   h+=`<div style="text-align:center;margin-top:24px">
-    <div class="hint">Life OS v2.8 · PWA</div>
+    <div class="hint">Life OS v3.2 · сборка 10.07 22:02</div>
     <button class="ghost small" style="margin-top:8px" onclick="checkUpdates()">Проверить обновления</button></div>`;
   return h;
 }
-function saveName(){S.settings.name=((document.getElementById("nm")||{}).value||"").trim();render()}
+function saveName(){S.settings.name=(((document.getElementById("nm")||{}).value)||"").trim();render()}
 /* свайпы задач */
 (function(){
   let el=null,sx=0,dx=0;
@@ -1610,12 +1711,15 @@ function saveName(){S.settings.name=((document.getElementById("nm")||{}).value||
   },{passive:true});
   document.addEventListener("touchmove",e=>{
     if(!el)return;dx=e.touches[0].clientX-sx;
-    el.style.transform="translateX("+Math.max(-90,Math.min(90,dx))+"px)";
+    const r=Math.max(-110,Math.min(110,dx*0.85));
+    el.style.transform="translateX("+r+"px)";
+    el.style.backgroundColor=dx>44?"rgba(76,175,125,.22)":dx<-44?"rgba(176,90,74,.22)":"";
+    if(Math.abs(dx)>64&&!el._hp){el._hp=1;if(navigator.vibrate){try{navigator.vibrate(8)}catch(_){}}}
   },{passive:true});
   document.addEventListener("touchend",()=>{
     if(!el)return;
     const t=el,d=t.dataset.d,i=Number(t.dataset.i),fdx=dx;
-    t.style.transition="transform .18s";t.style.transform="";
+    t.style.transition="transform .18s,background-color .25s";t.style.transform="";t.style.backgroundColor="";t._hp=0;
     if(Math.abs(fdx)>12)t.addEventListener("click",ev=>{ev.stopPropagation();ev.preventDefault()},{capture:true,once:true});
     if(fdx>64)toggleTask(d,i);else if(fdx<-64)delTask(d,i);
     el=null;dx=0;
@@ -1628,7 +1732,7 @@ function delPack(i){S.packs.splice(i,1);editPack=-1;render()}
 function packAddItem(i){addFromInput("pk-i",v=>{const n=(document.getElementById("pk-n")||{}).value;if(n&&n.trim())S.packs[i].name=n.trim();S.packs[i].items.push(v);render()})}
 function packDelItem(i,j){S.packs[i].items.splice(j,1);render()}
 function saveVec(i){
-  const g=id=>(document.getElementById(id)||{}).value.trim();
+  const g=id=>(((document.getElementById(id)||{}).value)||"").trim();
   S.vectors[i]={name:g("ev-n"),min:g("ev-m"),win:g("ev-w")};editVec=-1;render();
 }
 function editOrientir(){
@@ -1640,7 +1744,7 @@ function editOrientir(){
     <div class="linkline" onclick="overlay=null;render()">вернуться</div></div></div>`;render();
 }
 function saveOrientir(){
-  const c=[0,1,2,3,4].map(i=>(document.getElementById("or"+i)||{}).value.trim()).filter(Boolean);
+  const c=[0,1,2,3,4].map(i=>(((document.getElementById("or"+i)||{}).value)||"").trim()).filter(Boolean);
   if(!c.length){alert("Хотя бы один критерий.");return}
   S.orientir={criteria:c,month:curMonth()};overlay=null;render();
 }
@@ -1665,7 +1769,7 @@ function delTpl(ci){
   showToast("Шаблон удалён",()=>{S.customTpl.splice(ci,0,t);render()});
 }
 function setRemind(){
-  const v=((document.getElementById("rem")||{}).value||"").trim();
+  const v=(((document.getElementById("rem")||{}).value)||"").trim();
   if(!/^\d{1,2}:\d{2}$/.test(v)){alert("Формат ЧЧ:ММ, например 21:30");return}
   S.settings.remind=v;
   if(typeof Notification!=="undefined"&&Notification.permission==="default")Notification.requestPermission();
@@ -1700,11 +1804,13 @@ async function syncPush(manual){
   try{
     const body=JSON.stringify({id:S.settings.syncId,data:S,updated_at:new Date().toISOString()});
     const r=await fetch(S.settings.syncUrl.replace(/\/+$/,"")+"/rest/v1/life_os",{method:"POST",
+      keepalive:true,
       headers:Object.assign(syncHeaders(),{Prefer:"resolution=merge-duplicates"}),body});
     if(!r.ok)throw new Error(r.status);
+    S.settings.lastSyncAt=new Date().toISOString();
     window._lastPush=JSON.stringify(S);
-    S.settings.lastSyncAt=new Date().toISOString();save();
-    if(manual)showInfo("Отправлено в облако ✓");else render();
+    localStorage.setItem(KEY,window._lastPush);
+    if(manual)showInfo("Отправлено в облако ✓");
   }catch(e){if(manual)alert("Не отправилось: проверь URL, ключ и интернет ("+e.message+")")}
 }
 async function syncPull(manual){
@@ -1717,6 +1823,12 @@ async function syncPull(manual){
     const rows=await r.json();
     if(!rows.length){if(manual)alert("В облаке пока пусто — сначала «Отправить» с основного устройства");return}
     const remote=rows[0];
+    if(!manual){
+      const localMark=S.settings.lastSyncAt||"";
+      if(remote.updated_at<=localMark)return; /* облако не новее — локальное главнее */
+      const ae=typeof document!=="undefined"&&document.activeElement;
+      if(ae&&(ae.tagName==="INPUT"||ae.tagName==="TEXTAREA")){setTimeout(()=>syncPull(false),3000);return}
+    }
     if(manual&&!confirm("Забрать данные из облака от "+new Date(remote.updated_at).toLocaleString("ru")+"? Локальные будут заменены."))return;
     const keep={syncUrl:S.settings.syncUrl,syncKey:S.settings.syncKey,syncId:S.settings.syncId,syncAuto:S.settings.syncAuto};
     const data=remote.data;Object.assign(data.settings,keep);
@@ -1731,15 +1843,20 @@ function scheduleSync(){
   if(!S.settings.syncAuto||!syncCfg())return;
   if(window._lastPush===JSON.stringify(S))return;
   clearTimeout(window._syncT);
-  window._syncT=setTimeout(()=>syncPush(false),4000);
+  window._syncT=setTimeout(()=>{
+    const ae=typeof document!=="undefined"&&document.activeElement;
+    if(ae&&(ae.tagName==="INPUT"||ae.tagName==="TEXTAREA")){scheduleSync();return}
+    syncPush(false);
+  },4000);
 }
 function genSyncId(){
+  if(S.settings.syncId&&!confirm("Уже есть код связки. Новый код ОТВЯЖЕТ это устройство от текущего облака. Продолжить?"))return;
   const a="abcdefghjkmnpqrstuvwxyz23456789";let t="";
   for(let i=0;i<24;i++)t+=a[Math.floor(Math.random()*a.length)];
   S.settings.syncId=t;render();
 }
 function syncSaveCfg(){
-  const g=id=>((document.getElementById(id)||{}).value||"").trim();
+  const g=id=>(((document.getElementById(id)||{}).value)||"").trim();
   S.settings.syncUrl=g("sy-url");S.settings.syncKey=g("sy-key");
   const sid=g("sy-id");if(sid)S.settings.syncId=sid;
   render();showInfo("Настройки синхронизации сохранены");
@@ -1765,6 +1882,21 @@ async function checkUpdates(){
     if(reg){await reg.update();showInfo("Проверено — если есть новое, перезапустится само")}
     else location.reload();
   }catch(e){alert("Не удалось проверить: "+e.message)}
+}
+if(typeof window!=="undefined"&&window.addEventListener){
+  window.addEventListener("resize",()=>{clearTimeout(window._rz);
+    window._rz=setTimeout(()=>{
+      const ae=typeof document!=="undefined"&&document.activeElement;
+      if(ae&&(ae.tagName==="INPUT"||ae.tagName==="TEXTAREA"))return;
+      if(!overlay)render();
+    },180)});
+  const flush=()=>{try{
+    if(S.settings.syncAuto&&syncCfg()&&window._lastPush!==JSON.stringify(S))syncPush(false);
+  }catch(e){}};
+  window.addEventListener("pagehide",flush);
+  if(typeof document!=="undefined")document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="hidden")flush();
+  });
 }
 applyAccent();
 applyPrefs();
